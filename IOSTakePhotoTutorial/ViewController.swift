@@ -46,6 +46,17 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
     }
 
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+    
+    if (picker.sourceType  == .camera) {
+        let data = (info[.originalImage] as? UIImage)!.pngData()
+        UIImageWriteToSavedPhotosAlbum((info[.originalImage] as? UIImage)!, nil, nil, nil)
+
+        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            let imageURL =  info[UIImagePickerController.InfoKey.referenceURL] as? NSURL
+            print(imageURL)
+        }
+    }
+    
         picker.dismiss(animated: true, completion: nil)
         imageView.image = info[.originalImage] as? UIImage
     }
@@ -54,5 +65,5 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
     picker.dismiss(animated: true, completion: nil)
     }
 
-}
 
+}
